@@ -14,6 +14,8 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("flipsidegram.users.urls", namespace="users")),
+    path("images/", include("flipsidegram.images.urls", namespace="images")),
+    path("notifications/", include("flipsidegram.notifications.urls", namespace="notifications")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

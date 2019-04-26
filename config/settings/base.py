@@ -61,19 +61,21 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "django.contrib.humanize", # Handy template tags
+    "django.contrib.humanize",
     "django.contrib.admin",
 ]
 THIRD_PARTY_APPS = [
-    "crispy_forms",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    "rest_framework",
+    "rest_framework",   # python <-> serialization <-> JSON 
+    "taggit", # Tags for the photos
 ]
 LOCAL_APPS = [
     "flipsidegram.users.apps.UsersAppConfig",
     # Your stuff: custom apps go here
+    'flipsidegram.images.apps.ImagesConfig',  # images app
+    'flipsidegram.notifications.apps.NotificationsConfig'  # notifications app
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -237,3 +239,4 @@ SOCIALACCOUNT_ADAPTER = "flipsidegram.users.adapters.SocialAccountAdapter"
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+TAGGIT_CASE_INSENSITIVE = True
