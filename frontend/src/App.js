@@ -1,17 +1,17 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.scss';
+import flipsideStyles from './App.scss';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className={flipsideStyles.App}>
+      <header className={flipsideStyles.App__header}>
+        <img src={logo} className={flipsideStyles.App__logo} alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
-          className="App-link"
+          className={flipsideStyles.App__link}
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
@@ -19,7 +19,7 @@ function App() {
           Learn React
         </a>
       </header>
-      <p className="App-intro">
+      <p className={flipsideStyles.App__intro}>
         To get started, edit <code>src/App.js</code> and save to reload.
       </p>
     </div>
