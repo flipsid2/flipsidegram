@@ -38,8 +38,8 @@ const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
 const useTypeScript = fs.existsSync(paths.appTsConfig);
 
 // style files regexes
-const cssRegex = /\.css$/;
-const cssModuleRegex = /\.module\.css$/;
+const cssRegex = /\.(css|scss)$/;
+const cssModuleRegex = /\.module\.(css|scss)$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
@@ -71,43 +71,47 @@ module.exports = function(webpackEnv) {
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
-      isEnvDevelopment && require.resolve('style-loader'),
+      isEnvDevelopment && require.resolve("style-loader"),
       isEnvProduction && {
         loader: MiniCssExtractPlugin.loader,
         options: Object.assign(
           {},
-          shouldUseRelativeAssetPaths ? { publicPath: '../../' } : undefined
-        ),
+          shouldUseRelativeAssetPaths ? { publicPath: "../../" } : undefined
+        )
       },
       {
-        loader: require.resolve('css-loader'),
-        options: cssOptions,
+        loader: require.resolve("css-loader"),
+        options: cssOptions
       },
       {
         // Options for PostCSS as we reference these options twice
         // Adds vendor prefixing based on your specified browser support in
         // package.json
-        loader: require.resolve('postcss-loader'),
+        loader: require.resolve("postcss-loader"),
         options: {
           // Necessary for external CSS imports to work
           // https://github.com/facebook/create-react-app/issues/2677
-          ident: 'postcss',
+          ident: "postcss",
           plugins: () => [
-            require('postcss-flexbugs-fixes'),
-            require('postcss-preset-env')({
+            require("postcss-flexbugs-fixes"),
+            require("postcss-preset-env")({
               autoprefixer: {
-                flexbox: 'no-2009',
+                flexbox: "no-2009"
               },
-              stage: 3,
+              stage: 3
             }),
             // Adds PostCSS Normalize as the reset css with default options,
             // so that it honors browserslist config in package.json
             // which in turn let's users customize the target behavior as per their needs.
-            postcssNormalize(),
+            postcssNormalize()
           ],
-          sourceMap: isEnvProduction && shouldUseSourceMap,
-        },
+          sourceMap: isEnvProduction && shouldUseSourceMap
+        }
       },
+      {
+        loader: require.resolve("sass-loader"),
+        options: cssOptions
+      }
     ].filter(Boolean);
     if (preProcessor) {
       loaders.push({
